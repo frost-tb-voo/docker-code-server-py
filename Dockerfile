@@ -55,7 +55,7 @@ RUN apt-get -y update \
  && apt-get -y install python3 python3-pip python3-venv exuberant-ctags \
  && apt-get -y autoclean \
  && apt-get -y autoremove \
- && rm -rf /var/lib/apt/lists
+ && rm -rf /var/lib/apt/ \
  && cd /usr/local/bin \
  && ln -s /usr/bin/idle3 idle \
  && ln -s /usr/bin/pydoc3 pydoc \
