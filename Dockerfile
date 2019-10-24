@@ -27,7 +27,7 @@ RUN apt-get -qq update \
  && npm install \
  && npm audit fix --force \
  && npm cache clean --force \
- && rm -r node_modules package-lock.json
+ && rm -r node_modules package-lock.json \
  && npm install \
  && npm cache clean --force \
  && rm -rf ~/.npm \
