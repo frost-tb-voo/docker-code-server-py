@@ -4,7 +4,9 @@ IMAGE=codercom/code-server:v2
 DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 
 cd ${DIR}
+docker pull node
 docker pull ${IMAGE}
 docker build -t novsyama/code-server-py --build-arg VCS_REF=`git rev-parse --short HEAD` .
+docker tag novsyama/code-server-py novsyama/code-server-py:local
 docker images novsyama/code-server-py
 
