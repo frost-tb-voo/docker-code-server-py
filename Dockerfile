@@ -1,10 +1,8 @@
-FROM node as extension
-MAINTAINER Novs Yama
-ARG VCS_REF
-LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/frost-tb-voo/docker-code-server-go"
+ARG VSCODE_PYTHON_VERSION=2019.6.24221
 
-ENV VSCODE_PYTHON_VERSION=2019.6.24221
+FROM node as extension
+ARG VSCODE_PYTHON_VERSION
+
 WORKDIR /python
 RUN apt-get -qq update \
  && apt-get -qq -y install curl unzip zip \
@@ -17,7 +15,7 @@ WORKDIR /python/extension
 RUN npm install --silent \
  && npm audit fix --force \
  && npm cache clean --force \
- && rm -r node_modules package-lock.json \
+ && rm -rf node_modules package-lock.json \
  && npm install --silent \
  && npm cache clean --force \
  && n rm stable \
@@ -27,10 +25,11 @@ RUN npm install --silent \
  && cd /python \
  && zip -q -r ms-python-release.vsix .
 
-FROM codercom/code-server:v2
-MAINTAINER Novs Yama
-
+FROM codercom/code-server
 ARG VCS_REF
+ARG VSCODE_PYTHON_VERSION
+
+LABEL maintainer="Novs Yama"
 LABEL org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.vcs-url="https://github.com/frost-tb-voo/docker-code-server-py"
 
@@ -50,6 +49,9 @@ RUN apt-get -qq -y update \
  && ln -s /usr/bin/pip3 pip
 
 ADD settings.json /home/coder/.local/share/code-server/User/settings.json
+ADD settings.json /home/coder/.local/share/code-server/Machine
+ADD settings.json /home/coder/project/.vscode/settings.json
+COPY --from=extension /python/ms-python-release.vsix /home/coder/
 RUN chown -hR coder /home/coder
 
 USER coder
@@ -60,5 +62,4 @@ RUN python -m pip install --no-cache-dir \
     pyformat isort flake8 pycodestyle
 
 WORKDIR /home/coder/project
-COPY --from=extension /python/ms-python-release.vsix /home/coder/
 RUN code-server --install-extension /home/coder/ms-python-release.vsix
