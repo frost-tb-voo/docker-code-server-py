@@ -3,8 +3,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/frost-tb-voo/docker-code-server-py.svg?style=flat-square)](https://github.com/frost-tb-voo/docker-code-server-py/stargazers)
 [![GitHub license](https://img.shields.io/github/license/frost-tb-voo/docker-code-server-py.svg?style=flat-square)](https://github.com/frost-tb-voo/docker-code-server-py/blob/master/LICENSE)
 [![Docker pulls](https://img.shields.io/docker/pulls/novsyama/code-server-py.svg?style=flat-square)](https://hub.docker.com/r/novsyama/code-server-py)
-[![Docker image-size](https://img.shields.io/microbadger/image-size/novsyama/code-server-py.svg?style=flat-square)](https://microbadger.com/images/novsyama/code-server-py)
-![Docker layers](https://img.shields.io/microbadger/layers/novsyama/code-server-py.svg?style=flat-square)
+[![Docker image-size](https://img.shields.io/docker/image-size/novsyama/code-server-py.svg?style=flat-square)](https://hub.docker.com/r/novsyama/code-server-py)
+[![Docker layers](https://img.shields.io/microbadger/layers/novsyama/code-server-py.svg?style=flat-square)](https://microbadger.com/images/novsyama/code-server-py)
 
 An unofficial extended VSCode [code-server](https://github.com/cdr/code-server) image for latest python3 with [vscode-python](https://github.com/microsoft/vscode-python/releases).
 See [novsyama/code-server-py](https://hub.docker.com/r/novsyama/code-server-py/)
