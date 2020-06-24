@@ -55,7 +55,7 @@ COPY --from=extension /python/ms-python-release.vsix /home/coder/
 RUN chown -hR coder /home/coder
 
 USER coder
-ENV PATH /usr/local/bin:$PATH
+ENV PATH /usr/local/bin:/home/coder/.local/bin:$PATH
 ENV LANG C.UTF-8
 RUN python -m pip install --no-cache-dir \
     rope pytest nose pyspark \
