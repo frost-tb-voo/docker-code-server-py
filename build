@@ -1,8 +1,8 @@
 #!/bin/sh
 
-IMAGE=codercom/code-server
+IMAGE=codercom/code-server:latest
 DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
-
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 cd ${DIR}
 docker pull node
 docker pull ${IMAGE}
