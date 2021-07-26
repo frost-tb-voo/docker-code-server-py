@@ -1,6 +1,7 @@
-ARG VSCODE_PYTHON_VERSION=2019.6.24221
+#ARG VSCODE_PYTHON_VERSION=2019.6.24221
+ARG VSCODE_PYTHON_VERSION=2021.5.926500501
 
-FROM node as extension
+FROM node:lts as extension
 ARG VSCODE_PYTHON_VERSION
 
 WORKDIR /python
@@ -25,7 +26,7 @@ RUN npm install --silent \
  && cd /python \
  && zip -q -r ms-python-release.vsix .
 
-FROM codercom/code-server
+FROM codercom/code-server:latest
 ARG VCS_REF
 ARG VSCODE_PYTHON_VERSION
 
@@ -37,7 +38,7 @@ USER root
 ENV PATH /usr/local/bin:$PATH
 ENV LANG C.UTF-8
 RUN apt-get -qq -y update \
- && apt-get -qq -y install python3 python3-pip python3-venv exuberant-ctags \
+ && apt-get -qq -y install python3-pip python3-venv exuberant-ctags \
  && apt-get -q -y autoclean \
  && apt-get -q -y autoremove \
  && rm -rf /var/lib/apt/ \
@@ -46,7 +47,8 @@ RUN apt-get -qq -y update \
  && ln -s /usr/bin/pydoc3 pydoc \
  && ln -s /usr/bin/python3 python \
  && ln -s /usr/bin/python3-config python-config \
- && ln -s /usr/bin/pip3 pip
+ && ln -s /usr/bin/pip3 pip \
+ && python --version
 
 ADD settings.json /home/coder/.local/share/code-server/User/settings.json
 ADD settings.json /home/coder/.local/share/code-server/Machine
@@ -57,9 +59,18 @@ RUN chown -hR coder /home/coder
 USER coder
 ENV PATH /usr/local/bin:/home/coder/.local/bin:$PATH
 ENV LANG C.UTF-8
-RUN python -m pip install --no-cache-dir \
-    rope pytest nose pyspark \
-    pyformat isort flake8 pycodestyle
+# Install
+# intellij refactoring packages,
+# test packages, and
+# code formatter packages
+RUN pip -q install --upgrade --no-cache-dir pip \
+ && pip --version \
+ && python -m pip -q install --no-cache-dir \
+    rope jedi pylint \
+    pytest nose \
+    pyformat isort flake8 pycodestyle 
+#RUN python -m pip cache purge
 
 WORKDIR /home/coder/project
 RUN code-server --install-extension /home/coder/ms-python-release.vsix
+

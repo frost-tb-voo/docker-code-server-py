@@ -4,7 +4,7 @@ IMAGE=codercom/code-server:latest
 DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 cd ${DIR}
-docker pull node
+docker pull node:lts
 docker pull ${IMAGE}
 docker build -t novsyama/code-server-py --build-arg VCS_REF=`git rev-parse --short HEAD` .
 docker tag novsyama/code-server-py novsyama/code-server-py:local
