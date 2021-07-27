@@ -1,12 +1,13 @@
 #!/bin/sh
 
 IMAGE=codercom/code-server:latest
+NEW_IMAGE=ghcr.io/frost-tb-voo/code-server-py
 DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 cd ${DIR}
 docker pull node:lts
 docker pull ${IMAGE}
-docker build -t novsyama/code-server-py --build-arg VCS_REF=`git rev-parse --short HEAD` .
-docker tag novsyama/code-server-py novsyama/code-server-py:local
-docker images novsyama/code-server-py
+docker build -t ${NEW_IMAGE} --build-arg VCS_REF=`git rev-parse --short HEAD` .
+docker tag ${NEW_IMAGE} ${NEW_IMAGE}:local
+docker images ${NEW_IMAGE}:local
 

@@ -1,20 +1,16 @@
 # docker-code-server-py
-[![](https://img.shields.io/travis/frost-tb-voo/docker-code-server-py/master.svg?style=flat-square)](https://travis-ci.org/frost-tb-voo/docker-code-server-py/)
+[![](https://img.shields.io/github/workflow/status/frost-tb-voo/docker-code-server-py/Docker?style=flat-square)](https://github.com/frost-tb-voo/docker-code-server-py/actions/workflows/docker-publish.yml)
 [![GitHub stars](https://img.shields.io/github/stars/frost-tb-voo/docker-code-server-py.svg?style=flat-square)](https://github.com/frost-tb-voo/docker-code-server-py/stargazers)
 [![GitHub license](https://img.shields.io/github/license/frost-tb-voo/docker-code-server-py.svg?style=flat-square)](https://github.com/frost-tb-voo/docker-code-server-py/blob/master/LICENSE)
-[![Docker pulls](https://img.shields.io/docker/pulls/novsyama/code-server-py.svg?style=flat-square)](https://hub.docker.com/r/novsyama/code-server-py)
-[![Docker image-size](https://img.shields.io/docker/image-size/novsyama/code-server-py.svg?style=flat-square)](https://hub.docker.com/r/novsyama/code-server-py)
-[![Docker layers](https://img.shields.io/microbadger/layers/novsyama/code-server-py.svg?style=flat-square)](https://microbadger.com/images/novsyama/code-server-py)
 
 An unofficial extended VSCode [code-server](https://github.com/cdr/code-server) image for latest python3 with [vscode-python](https://github.com/microsoft/vscode-python/releases).
-See [novsyama/code-server-py](https://hub.docker.com/r/novsyama/code-server-py/)
 
 ## How
 
 ```bash
 PROJECT_DIR=<workspace absolute path>
 
-sudo docker pull novsyama/code-server-py
+sudo docker pull ghcr.io/frost-tb-voo/code-server-py
 sudo docker run --name=vscode --net=host -d \
  -v "${PROJECT_DIR}:/home/coder/project" \
  -w /home/coder/project \
